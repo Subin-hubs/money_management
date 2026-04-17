@@ -33,7 +33,7 @@ class NotificationService {
     NotificationDetails(android: androidDetails);
 
     print("Notification triggered");
-    final int id = DateTime.now().millisecondsSinceEpoch;
+    final int id = DateTime.now().millisecondsSinceEpoch.remainder(100000);
 
     await _notificationsPlugin.show(
       id: id,
