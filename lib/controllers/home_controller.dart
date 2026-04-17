@@ -3,7 +3,8 @@ import '../models/transaction.dart';
 import '../models/transaction_type.dart';
 
 class HomeController {
-  final Box<TransactionModel> transactionBox = Hive.box<TransactionModel>('transactions');
+  final Box<TransactionModel> transactionBox =
+  Hive.box<TransactionModel>('transactions');
 
   double get totalIncome {
     return transactionBox.values

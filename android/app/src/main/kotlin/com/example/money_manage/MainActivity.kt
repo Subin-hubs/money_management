@@ -1,17 +1,19 @@
 package com.example.money_manage
 
+import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity
-
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
 
-class MainActivity: FlutterActivity() {
+class MainActivity : FlutterActivity() {
 
     companion object {
-        var flutterEngineInstance: FlutterEngine? = null
+        var channel: MethodChannel? = null
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        flutterEngineInstance = flutterEngine
+
+        channel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "noti_channel")
     }
 }

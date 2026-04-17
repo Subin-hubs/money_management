@@ -3,11 +3,8 @@ package com.example.money_manage
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import io.flutter.plugin.common.MethodChannel
 
 class NotificationListener : NotificationListenerService() {
-
-    private val CHANNEL = "noti_channel"
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
 
@@ -24,33 +21,37 @@ class NotificationListener : NotificationListenerService() {
             lowerText.contains("debited") ||
                     lowerText.contains("credited") ||
                     lowerText.contains("rs") ||
-                    lowerText.contains("balance")
+                    lowerText.contains("npr") ||
+                    lowerText.contains("₹")
 
         if (!isFinance) return
 
-        Log.d("NOTI_LISTENER", "FINANCE: $title | $text")
+        Log.d("NOTI", "RAW TEXT: $text")
 
-        val amountRegex = Regex("(rs|inr|₹)\\s?([0-9,]+)")
-        val match = amountRegex.find(text)
+        val cleanedText = text.replace(",", "")
 
-        val amount = match?.groups?.get(2)?.value ?: "0"
+        var amount = "0"
 
-        Log.d("NOTI_LISTENER", "AMOUNT: $amount")
+        val regex = Regex("(?i)(rs\\.?|inr|npr|₹)\\s*([0-9]+)")
+        val match = regex.find(cleanedText)
 
-        val engine = MainActivity.flutterEngineInstance
-
-        if (engine != null) {
-            MethodChannel(
-                engine.dartExecutor.binaryMessenger,
-                CHANNEL
-            ).invokeMethod(
-                "onNotification",
-                mapOf(
-                    "title" to title,
-                    "text" to text,
-                    "amount" to amount
-                )
-            )
+        if (match != null) {
+            amount = match.groupValues[2]
+        } else {
+            val fallback = Regex("\\d+").find(cleanedText)
+            amount = fallback?.value ?: "0"
         }
+
+        Log.d("NOTI", "FINAL AMOUNT: $amount")
+
+        // ✅ SEND TO FLUTTER USING NEW CHANNEL
+        MainActivity.channel?.invokeMethod(
+            "onNotification",
+            mapOf(
+                "title" to title,
+                "text" to text,
+                "amount" to amount
+            )
+        )
     }
 }
