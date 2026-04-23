@@ -3,7 +3,7 @@ import 'package:money_manage/pages/more.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../add.dart';
-import '../calculater.dart';
+import '../calculator.dart';
 import '../goal.dart';
 import '../home.dart';
 
@@ -25,7 +25,7 @@ class _NavbarSideState extends State<NavbarSide> {
     Home(),
     Goal(),
     Add(),
-    Calculater(),
+    Calculator(),
     More()
 
   ];

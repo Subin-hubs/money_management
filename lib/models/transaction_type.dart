@@ -4,7 +4,7 @@ import '../constants/app_colors.dart';
 
 part 'transaction_type.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 12) // FIXED (must be unique)
 enum TransactionType {
   @HiveField(0)
   expense,
@@ -13,9 +13,9 @@ enum TransactionType {
   income
 }
 
-
 extension TransactionTypeX on TransactionType {
-  String get label => this == TransactionType.expense ? '↓ Expense' : '↑ Income';
+  String get label =>
+      this == TransactionType.expense ? '↓ Expense' : '↑ Income';
 
   String get amountLabel =>
       this == TransactionType.expense ? 'Total Expense' : 'Total Income';
@@ -24,5 +24,7 @@ extension TransactionTypeX on TransactionType {
       this == TransactionType.expense ? AppColors.expense : AppColors.income;
 
   Color get lightColor =>
-      this == TransactionType.expense ? AppColors.expenseLight : AppColors.incomeLight;
+      this == TransactionType.expense
+          ? AppColors.expenseLight
+          : AppColors.incomeLight;
 }

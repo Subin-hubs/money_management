@@ -327,7 +327,7 @@ class AllTransactionsPage extends StatelessWidget {
                         _DateChip(date: date),
                         const Spacer(),
                         Text(
-                          "${dayNet >= 0 ? '+' : ''}रु${NumberFormat('#,##0').format(dayNet)}",
+                          "${dayNet >= 0 ? '+' : ''}NPR${NumberFormat('#,##0').format(dayNet)}",
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,

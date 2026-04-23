@@ -2,10 +2,9 @@ import 'package:hive/hive.dart';
 import 'transaction_type.dart';
 import 'category_model.dart';
 
-// 1. Add the part file for the generator
 part 'transaction.g.dart';
 
-@HiveType(typeId: 0) // Unique ID for this class
+@HiveType(typeId: 10) // FIXED (was 0)
 class TransactionModel extends HiveObject {
   @HiveField(0)
   final TransactionType type;
@@ -32,11 +31,6 @@ class TransactionModel extends HiveObject {
 
   @override
   String toString() {
-    return 'TransactionModel('
-        'type: ${type.toString()}, '
-        'amount: $amount, '
-        'category: ${category.toString()}, '
-        'date: $date, '
-        'note: $note)';
+    return 'TransactionModel(type: $type, amount: $amount, category: $category, date: $date, note: $note)';
   }
 }
